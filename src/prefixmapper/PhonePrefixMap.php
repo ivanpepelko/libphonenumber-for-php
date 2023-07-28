@@ -44,13 +44,22 @@ class PhonePrefixMap
 
     public function lookupKey($key)
     {
+        $key = $this->doLookupKey($key);
+        return isset($this->phonePrefixMapStorage[$key]) ? $this->phonePrefixMapStorage[$key] : null;
+    }
+
+    public function lookupPrefix($key) {
+        return $this->doLookupKey($key);
+    }
+
+    private function doLookupKey($key) {
         if (count($this->phonePrefixMapStorage) == 0) {
             return null;
         }
 
-        while (strlen($key) > 0) {
+        while ($key !== '') {
             if (array_key_exists($key, $this->phonePrefixMapStorage)) {
-                return $this->phonePrefixMapStorage[$key];
+                return $key;
             }
 
             $key = substr($key, 0, -1);

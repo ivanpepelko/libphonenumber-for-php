@@ -102,6 +102,16 @@ class PhoneNumberToCarrierMapper
         return '';
     }
 
+    public function getPrefixForNumber(PhoneNumber $number, $languageCode)
+    {
+        $map = $this->prefixFileReader->getPhonePrefixDescriptions($number->getCountryCode(), $languageCode, null, null);
+        if ($map) {
+            return $map->lookupPrefix($number->getCountryCode() . $this->phoneUtil->getNationalSignificantNumber($number));
+        }
+
+        return '';
+    }
+
     /**
      * Gets the name of the carrier for the given phone number only when it is 'safe' to display to
      * users. A carrier name is considered safe if the number is valid and for a region that doesn't

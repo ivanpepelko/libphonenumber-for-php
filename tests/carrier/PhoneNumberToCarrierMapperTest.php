@@ -144,4 +144,13 @@ class PhoneNumberToCarrierMapperTest extends TestCase
         $this->assertEquals('', $this->carrierMapper->getNameForNumber(self::$UK_INVALID_NUMBER, 'en'));
         $this->assertEquals('', $this->carrierMapper->getNameForNumber(self::$AO_INVALID_NUMBER, 'en'));
     }
+
+    public function testGetPrefix()
+    {
+        $this->assertEquals('4473', $this->carrierMapper->getPrefixForNumber(self::$UK_MOBILE1, 'en'));
+        $this->assertEquals('4411', $this->carrierMapper->getPrefixForNumber(self::$UK_FIXED1, 'en'));
+        $this->assertEquals('1650212', $this->carrierMapper->getPrefixForNumber(self::$US_FIXED_OR_MOBILE, 'en'));
+        $this->assertEquals('', $this->carrierMapper->getPrefixForNumber(self::$UK_MOBILE1, 'fr'));
+        $this->assertEquals('', $this->carrierMapper->getPrefixForNumber(self::$NUMBER_WITH_INVALID_COUNTRY_CODE, 'en'));
+    }
 }
